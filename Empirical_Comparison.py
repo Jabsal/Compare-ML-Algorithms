@@ -108,38 +108,98 @@ plt.show()
 validation_size = 0.2
 X_train, X_validation, Y_train, Y_validation = model_selection.train_test_split(X, Y, test_size=validation_size, random_state=0)
 
+
+class Result(object):
+    def __init__(self, parameter, val):
+        self.parameter = parameter
+        self.val = val
+
+		
+from sklearn import metrics
+
+
 #LogisticRegression
 clf = LogisticRegression()
-LogisticRegression(class_weight='balanced')
 clf.fit(X_train, Y_train)
 
+
 # use the model to predict the labels of the test data
-predicted = clf.predict(X_validation)
-expected = Y_validation
-print(predicted)
-print(expected.tolist())
+y_pred = clf.predict(X_validation)
+y_true = Y_validation
+print(y_pred)
+print(y_true.tolist())
+
+#metrics
+accuracy_score = metrics.accuracy_score(y_true, y_pred)	#Accuracy classification score.
+#metrics.auc(x, y)	#Compute Area Under the Curve (AUC) using the trapezoidal rule
+#metrics.average_precision_score(y_true, y_score)	#Compute average precision (AP) from prediction scores
+metrics.confusion_matrix(y_true, y_pred)	#Compute confusion matrix to evaluate the accuracy of a classification
+f1_score = metrics.f1_score(y_true, y_pred)	#Compute the F1 score, also known as balanced F-score or F-measure
+precision_score = metrics.precision_score(y_true, y_pred)	#Compute the precision
+recall_score = metrics.recall_score(y_true, y_pred)	#Compute the recall
+#metrics.roc_auc_score(y_true, y_score)	#Compute Area Under the Receiver Operating Characteristic Curve (ROC AUC) from prediction scores.
+#metrics.roc_curve(y_true, y_score)	#Compute Receiver operating characteristic (ROC)
+zero_one_loss = metrics.zero_one_loss(y_true, y_pred)	#Zero-one classification loss.
+
+print("Model - SVM")
+Results = [Result("accuracy_score", accuracy_score), Result("f1_score",f1_score), Result("precision_score",precision_score), Result("recall_score",recall_score), Result("zero_one_loss",zero_one_loss)]
+allResults = dict([(p.parameter, p.val) for p in Results ])
+print allResults
 
 #DecisionTreeClassifier
-clf = DecisionTreeClassifier()
-DecisionTreeClassifier(criterion='entropy')
+clf = DecisionTreeClassifier(criterion='entropy')
 clf.fit(X_train, Y_train)
 
 # use the model to predict the labels of the test data
-predicted = clf.predict(X_validation)
-expected = Y_validation
-print(predicted)
-print(expected.tolist())
+y_pred = clf.predict(X_validation)
+y_true = Y_validation
+print(y_pred)
+print(y_true.tolist())
 # print(results)
+
+#metrics
+accuracy_score = metrics.accuracy_score(y_true, y_pred)	#Accuracy classification score.
+#metrics.auc(x, y)	#Compute Area Under the Curve (AUC) using the trapezoidal rule
+#metrics.average_precision_score(y_true, y_score)	#Compute average precision (AP) from prediction scores
+metrics.confusion_matrix(y_true, y_pred)	#Compute confusion matrix to evaluate the accuracy of a classification
+f1_score = metrics.f1_score(y_true, y_pred)	#Compute the F1 score, also known as balanced F-score or F-measure
+precision_score = metrics.precision_score(y_true, y_pred)	#Compute the precision
+recall_score = metrics.recall_score(y_true, y_pred)	#Compute the recall
+#metrics.roc_auc_score(y_true, y_score)	#Compute Area Under the Receiver Operating Characteristic Curve (ROC AUC) from prediction scores.
+#metrics.roc_curve(y_true, y_score)	#Compute Receiver operating characteristic (ROC)
+zero_one_loss = metrics.zero_one_loss(y_true, y_pred)	#Zero-one classification loss.
+
+print("Model - Logistic Regression")
+Results = [Result("accuracy_score", accuracy_score), Result("f1_score",f1_score), Result("precision_score",precision_score), Result("recall_score",recall_score), Result("zero_one_loss",zero_one_loss)]
+allResults = dict([ (p.parameter, p.val) for p in Results ])
+print allResults
+
 
 #DecisionTreeClassifier
-clf = svm.SVC()
-svm.SVC(kernel='linear', C=2)
+clf = svm.SVC(kernel='linear', C=1.0)
 clf.fit(X_train, Y_train)
 
 # use the model to predict the labels of the test data
-predicted = clf.predict(X_validation)
-expected = Y_validation
-print(predicted)
-print(expected.tolist())
-# print(results)
+y_pred = clf.predict(X_validation)
+y_true = Y_validation
+print(y_pred)
+print(y_true.tolist())
+
+from sklearn import metrics
+accuracy_score = metrics.accuracy_score(y_true, y_pred)	#Accuracy classification score.
+#metrics.auc(x, y)	#Compute Area Under the Curve (AUC) using the trapezoidal rule
+#metrics.average_precision_score(y_true, y_score)	#Compute average precision (AP) from prediction scores
+metrics.confusion_matrix(y_true, y_pred)	#Compute confusion matrix to evaluate the accuracy of a classification
+f1_score = metrics.f1_score(y_true, y_pred)	#Compute the F1 score, also known as balanced F-score or F-measure
+precision_score = metrics.precision_score(y_true, y_pred)	#Compute the precision
+recall_score = metrics.recall_score(y_true, y_pred)	#Compute the recall
+#metrics.roc_auc_score(y_true, y_score)	#Compute Area Under the Receiver Operating Characteristic Curve (ROC AUC) from prediction scores.
+#metrics.roc_curve(y_true, y_score)	#Compute Receiver operating characteristic (ROC)
+zero_one_loss = metrics.zero_one_loss(y_true, y_pred)	#Zero-one classification loss.
+
+print("Model - Decision Tree")
+Results = [Result("accuracy_score", accuracy_score), Result("f1_score",f1_score), Result("precision_score",precision_score), Result("recall_score",recall_score), Result("zero_one_loss",zero_one_loss)]
+allResults = dict([ (p.parameter, p.val) for p in Results ])
+print allResults
+
 
